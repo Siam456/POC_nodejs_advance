@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": false,
+        "amount": 30
+    },
+    "auditLog": "C:\\Users\\BS747\\Desktop\\admin\\ts\\js-convo\\src\\logs\\debug\\.0e272001b701be6e2d69a7db914b5b81f631ce3d-audit.json",
+    "files": [
+        {
+            "date": 1676445191101,
+            "name": "C:\\Users\\BS747\\Desktop\\admin\\ts\\js-convo\\src\\logs\\debug\\2023-02-15.log",
+            "hash": "8cbae5e930cfe3d76448d7a4ec1fb450eb7af55c4f37028dd116ec28573fce33"
+        }
+    ],
+    "hashType": "sha256"
+}
