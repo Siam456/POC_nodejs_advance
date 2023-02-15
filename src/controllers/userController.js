@@ -1,6 +1,6 @@
 import express from "express";
 
-import validators from "../models/viewModels/";
+import validators from "../models/view-Models";
 import { handleValidations } from "../middlewares/handleValidations";
 
 import {
@@ -68,8 +68,4 @@ router.post("/", handleValidations(validators.userSchemaValidate), postHandler);
 router.put("/", putHandler);
 router.delete("/:id", deleteHandler);
 
-const configure = (app) => {
-  app.use("/users", router);
-};
-
-export default configure;
+export default router;

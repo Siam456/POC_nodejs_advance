@@ -1,4 +1,4 @@
-import validate from "./user-view-model";
+import validate from "./user-request-model";
 
 const validators = { userSchemaValidate: validate };
 

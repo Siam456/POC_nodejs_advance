@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 //internal export
-import configure from "./controllers";
+import configureRoutes from "./controllers";
 import { handleErrors } from "./middlewares/handleErrors.js";
 
 app.use(processRequest);
@@ -19,7 +19,7 @@ app.use(
     stream,
   })
 );
-configure(app);
+configureRoutes(app);
 app.use(handleErrors);
 
 export default app;
