@@ -44,6 +44,6 @@ export const deleteById = async (id) => {
 export const getUserById = async (id) => {
   const User = models.User;
   let model = await User.findById(id);
-  let viewModel = new viewModel.UserViewModel(model);
-  return model;
+  let newViewModel = new viewModel.UserViewModel(model);
+  return newViewModel;
 };

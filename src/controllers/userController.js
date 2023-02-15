@@ -1,6 +1,6 @@
 import express from "express";
 
-import validators from "../models/view-Models";
+import validators from "../models/request-models";
 import { handleValidations } from "../middlewares/handleValidations";
 
 import {
