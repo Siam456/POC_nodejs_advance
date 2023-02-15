@@ -10,6 +10,7 @@ import {
   update,
   deleteById,
 } from "../services/userServices.js";
+import { NotFound } from "../utils/errors";
 const router = express.Router();
 
 const getHandler = async (req, res) => {

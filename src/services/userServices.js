@@ -1,4 +1,4 @@
-import models from "../models/index.js";
+import models from "../models";
 import { NotFound } from "../utils/errors";
 
 export const saveUser = async (userData) => {
