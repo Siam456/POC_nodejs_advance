@@ -1,0 +1,10 @@
+version: "3"
+services:
+  my-app:
+    build:
+      context: .
+      args:
+        NODE_ENV: production
+    environment:
+      - NAME=DEV ENV
+    command: node app.js
