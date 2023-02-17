@@ -1,15 +1,20 @@
-import models from "../models";
+import models from "../models/data-models";
+import viewModel from "../models/view-Models";
 import { NotFound } from "../utils/errors";
 
 export const saveUser = async (userData) => {
   const user = new models.User(userData);
   const _user = await user.save();
 
-  return _user;
+  return _user._id;
 };
 
 export const getUsers = async () => {
-  return models.User.find();
+  const User = models.User;
+  const Users = await User.find();
+  const letViewModel = Users.map((user) => new viewModel.UserViewModel(user));
+
+  return letViewModel;
 };
 
 export const update = async (user) => {
@@ -39,6 +44,6 @@ export const deleteById = async (id) => {
 export const getUserById = async (id) => {
   const User = models.User;
   let model = await User.findById(id);
-  //   let viewModel = new UserViewModel(model);
-  return model;
+  let newViewModel = new viewModel.UserViewModel(model);
+  return newViewModel;
 };
