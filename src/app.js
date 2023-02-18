@@ -1,5 +1,5 @@
 import express from "express";
-import { infoLogger, stream } from "./utils/logger.js";
+import { infoLogger, errorLogger, stream } from "./utils/logger.js";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import swaggerUI, { setup } from "swagger-ui-express";
@@ -21,6 +21,8 @@ app.use(
   })
 );
 configureRoutes(app);
+
+if (process.env.NODE_ENV != "TEST") app.use(errorLogger());
 app.use(handleErrors);
 
 const swaggerDocument = require(`./swagger.json`);

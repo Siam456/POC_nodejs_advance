@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon --inspect=0.0.0.0 -r esm ./src/server.js",
+    "dev": "nodemon --inspect=0.0.0.0 -r esm -L ./src/server.js",
     "test": "cross-env NODE_ENV=TEST jest --runInBand --force-exit"
   },
   "keywords": [],
@@ -13,6 +14,8 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
+    "es6": "npm:@elastic/elasticsearch@^6.8.8",
+    "es7": "npm:@elastic/elasticsearch@^7.17.0",
     "esm": "^3.2.25",
     "express": "^4.18.2",
     "express-winston": "^4.2.0",
@@ -23,7 +26,7 @@
     "undici": "^5.19.1",
     "winston": "^3.8.2",
     "winston-daily-rotate-file": "^4.7.1",
-    "winston-elasticsearch": "^0.17.1",
+    "winston-elasticsearch": "^0.7.0",
     "winston-mongodb": "^5.1.1"
   },
   "devDependencies": {
@@ -31,6 +34,7 @@
     "@babel/preset-env": "^7.11.5",
     "babel-jest": "^26.3.0",
     "jest": "^26.4.2",
+    "nodemon": "^2.0.20",
     "superagent": "^6.1.0",
     "supertest": "^5.0.0"
   }

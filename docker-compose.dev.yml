@@ -6,12 +6,11 @@ services:
       args:
         NODE_ENV: development
     volumes:
-      - app_data:/app
+      - .:/app
       - /app/node_modules
     environment:
       - NAME=DEV ENV
     command: npm run dev
-
-volumes:
-  app_data:
-    driver: local
+# volumes:
+#   app_data:
+#     driver: local
