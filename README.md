@@ -1,18 +1,30 @@
-## Available Scripts
+# POC_nodejs_advance
 
-### `npm run dev`
+A basic crud application Express.
 
-Run the server in development mode.
+## Setup
 
-### `npm test`
+To setup and run you need to download or clone the project. Then, you can run the project both manually and using Docker.
 
-Run all unit-tests with hot-reloading.
+- ### Docker
+  You need `docker` installed in your system. Go to root directory of the project and run `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d`. The application will up and running after completing task.
+- ### Manual Setup
+  - Run `npm install` then `npm run dev` to run in development mode or `npm start` to run production.
 
-### `npm start`
+After completing the setup browse `http://localhost:3000` for backend.
 
+## Tech Stack
 
-Run production build with a different env file.
+- `express@4`
 
-## Additional Notes
+## Documentation
 
--   If `npm run dev` gives you issues with bcrypt on MacOS you may need to run: `npm rebuild bcrypt --build-from-source`.
+Swagger documentation is not completed yet. Instead you can use `Rest Client` extention of `VSCode`.
+
+## Testing
+
+To test backend apis run `npm run test`.
+
+## Features
+
+- User curd
