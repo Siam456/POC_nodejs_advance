@@ -4,6 +4,7 @@ import expressWinston from "express-winston";
 import "winston-daily-rotate-file";
 import fs from "fs";
 const { Client } = require("es6");
+import winston_elasticsearch from "winston-elasticsearch";
 
 const logDir = __dirname + "/../logs";
 
@@ -11,11 +12,9 @@ if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
 
-console.log(process.env.ELASTIC_SEARCH_LOGGING_URL);
-
-// const client = new Client({
-//   host: process.env.ELASTIC_SEARCH_LOGGING_URL,
-// });
+const logFormat = winston.format.printf(
+  ({ timestamp, level, message }) => `${timestamp} ${level}: ${message}`
+);
 
 const getMessage = (req, res) => {
   let obj = {
@@ -25,6 +24,22 @@ const getMessage = (req, res) => {
 
   return JSON.stringify(obj);
 };
+
+const client = new Client({
+  node: process.env.ELASTIC_SEARCH_LOGGING_URL,
+});
+
+const esTransportOpts = {
+  dataStream: true,
+  indexSuffixPattern: "YYYY.MM.DD",
+
+  // clientOpts: { node: process.env.ELASTIC_SEARCH_LOGGING_URL },
+  client: client,
+  type: "console",
+  indexPrefix: "log-siam",
+};
+
+let esTransport = new winston_elasticsearch(esTransportOpts);
 
 const mongoErrorTransport = (uri) =>
   new winston.transports.MongoDB({
@@ -36,7 +51,12 @@ const mongoErrorTransport = (uri) =>
 export const infoLogger = () =>
   expressWinston.logger({
     transports: [
-      new winston.transports.Console(),
+      new winston.transports.Console({
+        format: winston.format.combine(
+          winston.format.splat(),
+          winston.format.colorize()
+        ),
+      }),
       new winston.transports.DailyRotateFile({
         level: "debug",
         datePattern: "YYYY-MM-DD",
@@ -46,6 +66,7 @@ export const infoLogger = () =>
         json: false,
         zippedArchive: true,
       }),
+      esTransport,
     ],
     format: winston.format.combine(
       // winston.format.colorize(),
@@ -56,10 +77,15 @@ export const infoLogger = () =>
     msg: getMessage,
   });
 
-export const errorLogger = (uri) =>
+export const errorLogger = () =>
   expressWinston.errorLogger({
     transports: [
-      new winston.transports.Console(),
+      new winston.transports.Console({
+        format: winston.format.combine(
+          winston.format.splat(),
+          winston.format.colorize()
+        ),
+      }),
       // error log setting
       new winston.transports.DailyRotateFile({
         level: "error",
@@ -71,7 +97,8 @@ export const errorLogger = (uri) =>
         json: false,
         zippedArchive: true,
       }),
-      mongoErrorTransport(uri),
+      mongoErrorTransport(process.env.MONGO_URI),
+      esTransport,
     ],
     format: winston.format.combine(
       // winston.format.colorize(),
