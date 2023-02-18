@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-export const uri = "mongodb://127.0.0.1:27017/my_db";
+export const uri = process.env.MONGO_URI;
 
 const options = { useUnifiedTopology: true };
 

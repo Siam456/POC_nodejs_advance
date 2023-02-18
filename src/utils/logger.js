@@ -3,12 +3,19 @@ require("winston-mongodb");
 import expressWinston from "express-winston";
 import "winston-daily-rotate-file";
 import fs from "fs";
+const { Client } = require("es6");
 
 const logDir = __dirname + "/../logs";
 
 if (!fs.existsSync(logDir)) {
   fs.mkdirSync(logDir);
 }
+
+console.log(process.env.ELASTIC_SEARCH_LOGGING_URL);
+
+// const client = new Client({
+//   host: process.env.ELASTIC_SEARCH_LOGGING_URL,
+// });
 
 const getMessage = (req, res) => {
   let obj = {

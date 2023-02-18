@@ -23,6 +23,31 @@ services:
       - db_data:/app/data/db
     networks:
       - myNet
+  elasticsearch:
+    image: elasticsearch:7.9.2
+    restart: always
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+    volumes:
+      - esvol:/usr/share/elasticsearch/data
+    networks:
+      - myNet
+  kibana:
+    image: kibana:7.9.2
+    restart: always
+    ports:
+      - "5601:5601"
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    volumes:
+      - kibvol:/usr/share/kibana/data
+    depends_on:
+      - elasticsearch
+    networks:
+      - myNet
 
 networks:
   myNet:
@@ -30,4 +55,8 @@ networks:
 
 volumes:
   db_data:
+    driver: local
+  esvol:
+    driver: local
+  kibvol:
     driver: local
